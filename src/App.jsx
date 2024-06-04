@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+import './App.scss';
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+// Let's talk about using index.js and some other name in the component folder.
+// There's pros and cons for each way of doing this...
+// OFFICIALLY, we have chosen to use the Airbnb style guide naming convention. 
+// Why is this source of truth beneficial when spread across a global organization?
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import Form from './Components/Form';
+import Results from './Components/Results';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null,
+      requestParams: {},
+    };
+  }
+
+  callApi = (requestParams) => {
+    // mock output
+    const data = {
+      count: 2,
+      results: [
+        {name: 'fake thing 1', url: 'http://fakethings.com/1'},
+        {name: 'fake thing 2', url: 'http://fakethings.com/2'},
+      ],
+    };
+    this.setState({data, requestParams});
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <Header />
+        <div>Request Method: {this.state.requestParams.method}</div>
+        <div>URL: {this.state.requestParams.url}</div>
+        <Form handleApiCall={this.callApi} />
+        <Results data={this.state.data} />
+        <Footer />
+      </React.Fragment>
+    );
+  }
 }
 
-export default App
+export default App;
