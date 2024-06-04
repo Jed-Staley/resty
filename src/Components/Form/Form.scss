@@ -4,7 +4,7 @@ form {
   align-items: center;
   padding: 1em;
   background: #fff;
-  border: 1px solid #ddd;
+  border: 2px solid #333; /* Higher contrast border */
   border-radius: 8px;
   max-width: 600px;
   margin: 2em auto;
@@ -21,12 +21,14 @@ form {
       margin-bottom: 0.5em;
     }
 
-    input {
+    input,
+    textarea {
       padding: 0.5em;
       margin-bottom: 1em;
       width: 80%;
-      border: 1px solid #ddd;
+      border: 1px solid #333; /* Higher contrast border */
       border-radius: 4px;
+      font-family: inherit;
     }
 
     button {
@@ -51,12 +53,12 @@ form {
       button {
         cursor: pointer;
         padding: 0.5em 1em;
-        border: 1px solid #ddd;
+        border: 1px solid #333; /* Higher contrast border */
         border-radius: 4px;
         background-color: #f5f5f5;
         text-align: center;
         flex: 1;
-        margin: 0 0.5em;
+        margin: 0 0.25em; /* Add padding between buttons */
 
         &.active {
           background-color: darken(#f5f5f5, 10);
@@ -68,5 +70,9 @@ form {
         }
       }
     }
+  }
+
+  textarea {
+    margin-top: 1em; /* Add padding for JSON data section */
   }
 }
