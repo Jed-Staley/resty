@@ -4,9 +4,14 @@ import './Form.scss';
 
 const Form = (props) => {
   const [method, setMethod] = useState('GET');
+  const [jsonData, setJsonData] = useState('');
 
   const handleMethodClick = (e) => {
     setMethod(e.target.id);
+  };
+
+  const handleJsonChange = (e) => {
+    setJsonData(e.target.value);
   };
 
   const handleSubmit = e => {
@@ -14,9 +19,10 @@ const Form = (props) => {
     const formData = {
       method: method,
       url: 'https://pokeapi.co/api/v2/pokemon',
+      data: jsonData && (method === 'POST' || method === 'PUT') ? JSON.parse(jsonData) : null,
     };
     props.handleApiCall(formData);
-  }
+  };
 
   return (
     <>
@@ -60,6 +66,18 @@ const Form = (props) => {
             DELETE
           </button>
         </div>
+        {(method === 'POST' || method === 'PUT') && (
+          <label>
+            <span>JSON Data: </span>
+            <textarea
+              name='jsonData'
+              rows="10"
+              cols="50"
+              value={jsonData}
+              onChange={handleJsonChange}
+            />
+          </label>
+        )}
       </form>
     </>
   );
