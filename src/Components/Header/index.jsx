@@ -1,13 +1,13 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
+import './Header.scss';
 
-class Header extends React.Component {
-  render() {
-    return (
-      <header>
-        <h1>RESTy</h1>
-      </header>
-    );
-  }
+const Header = () => {
+  return (
+    <header>
+      <h1>RESTy</h1>
+    </header>
+  );
 }
 
 export default Header;

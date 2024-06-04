@@ -1,37 +1,68 @@
-import React from 'react';
-
+// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react';
 import './Form.scss';
 
-class Form extends React.Component {
+const Form = (props) => {
+  const [method, setMethod] = useState('GET');
 
-  handleSubmit = e => {
+  const handleMethodClick = (e) => {
+    setMethod(e.target.id);
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
     const formData = {
-      method:'GET',
+      method: method,
       url: 'https://pokeapi.co/api/v2/pokemon',
     };
-    this.props.handleApiCall(formData);
+    props.handleApiCall(formData);
   }
 
-  render() {
-    return (
-      <>
-        <form onSubmit={this.handleSubmit}>
-          <label >
-            <span>URL: </span>
-            <input name='url' type='text' />
-            <button type="submit">GO!</button>
-          </label>
-          <label className="methods">
-            <span id="get">GET</span>
-            <span id="post">POST</span>
-            <span id="put">PUT</span>
-            <span id="delete">DELETE</span>
-          </label>
-        </form>
-      </>
-    );
-  }
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <span>URL: </span>
+          <input name='url' type='text' />
+          <button type="submit">GO!</button>
+        </label>
+        <div className="methods">
+          <button
+            type="button"
+            id="GET"
+            onClick={handleMethodClick}
+            className={method === 'GET' ? 'active' : ''}
+          >
+            GET
+          </button>
+          <button
+            type="button"
+            id="POST"
+            onClick={handleMethodClick}
+            className={method === 'POST' ? 'active' : ''}
+          >
+            POST
+          </button>
+          <button
+            type="button"
+            id="PUT"
+            onClick={handleMethodClick}
+            className={method === 'PUT' ? 'active' : ''}
+          >
+            PUT
+          </button>
+          <button
+            type="button"
+            id="DELETE"
+            onClick={handleMethodClick}
+            className={method === 'DELETE' ? 'active' : ''}
+          >
+            DELETE
+          </button>
+        </div>
+      </form>
+    </>
+  );
 }
 
 export default Form;
