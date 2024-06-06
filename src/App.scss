@@ -1,21 +1,8 @@
-$backgroundColor: #f5f5f5;
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* Prevent horizontal scroll */
-}
+@import './Components/variables';
 
 body {
   background: $backgroundColor;
+  color: $textColor;
   height: 100%;
 
   #root {
@@ -30,14 +17,25 @@ body {
     align-items: center;
     margin: 2em auto;
     padding: 1em;
-    background: #fff;
-    border: 2px solid #333; /* Higher contrast border */
+    background: $borderColor;
+    border: 2px solid $borderColor;
     border-radius: 8px;
     max-width: 600px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 
     div {
       margin: 0.5em 0;
     }
+  }
+
+  .response-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 1em;
+    background: $borderColor;
+    border: 2px solid $borderColor;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 }

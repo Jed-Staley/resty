@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import './App.scss';
 
 import Header from './Components/Header';
@@ -6,29 +7,44 @@ import Footer from './Components/Footer';
 import Form from './Components/Form';
 import Results from './Components/Results';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: null,
       requestParams: {},
       requestMade: false,
-      loading: false, // New state variable to track loading
+      loading: false,
     };
   }
 
-  callApi = (requestParams) => {
-    this.setState({ loading: true, requestMade: true }); // Set loading to true when request is made
+  callApi = async (requestParams) => {
+    this.setState({ loading: true, requestMade: true, data: null });
 
-    // Simulate an API call with mock data
-    const data = {
-      count: 2,
-      results: [
-        { name: 'fake thing 1', url: 'http://fakethings.com/1' },
-        { name: 'fake thing 2', url: 'http://fakethings.com/2' },
-      ],
-    };
-    this.setState({ data, requestParams, loading: false }); // Set loading to false when data is received
+    try {
+      const response = await axios({
+        method: requestParams.method,
+        url: requestParams.url,
+        data: requestParams.data,
+      });
+      this.setState({
+        data: {
+          headers: response.headers,
+          body: response.data,
+        },
+        requestParams,
+        loading: false,
+      });
+    } catch (error) {
+      this.setState({
+        data: {
+          headers: {},
+          body: { error: error.message },
+        },
+        requestParams,
+        loading: false,
+      });
+    }
   };
 
   render() {
