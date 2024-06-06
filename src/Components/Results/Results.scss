@@ -1,16 +1,13 @@
-.response-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 1em;
-  background: #f5f5f5;
-  border: 2px solid #333; /* Higher contrast border */
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+@import '../variables';
 
-section pre {
-  text-align: left;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+.results {
+  background: $borderColor;
+  border: 2px solid $borderColor;
+  border-radius: 8px;
+  padding: 1em;
+  color: $textColor;
+
+  h3 {
+    color: $textColor;
+  }
 }
