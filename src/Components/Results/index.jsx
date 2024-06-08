@@ -8,9 +8,13 @@ const Results = ({ data }) => {
   return (
     <section className="results">
       <h3>Headers</h3>
-      <ReactJsonPretty data={data.headers} />
+      <div className="response-content">
+        <ReactJsonPretty data={data.headers} />
+      </div>
       <h3>Results</h3>
-      <ReactJsonPretty data={data.body} />
+      <div className="response-content">
+        <ReactJsonPretty data={data.body} />
+      </div>
     </section>
   );
 };
