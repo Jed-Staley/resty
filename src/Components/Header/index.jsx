@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect, useRef } from 'react';
 import './Header.scss';
 
@@ -19,8 +20,8 @@ const Header = ({ history, recents, onHistoryClick, onRecentsClick }) => {
 
   const handleClickOutside = (event) => {
     if (
-      (historyRef.current && !historyRef.current.contains(event.target)) &&
-      (recentsRef.current && !recentsRef.current.contains(event.target))
+      (!historyRef.current || !historyRef.current.contains(event.target)) &&
+      (!recentsRef.current || !recentsRef.current.contains(event.target))
     ) {
       setIsHistoryDropdownOpen(false);
       setIsRecentsDropdownOpen(false);
@@ -42,19 +43,25 @@ const Header = ({ history, recents, onHistoryClick, onRecentsClick }) => {
     let current = history.top;
     const historyItems = [];
     while (current) {
-      const { url, time, repeatCount } = current.data;
-      historyItems.push(
-        <li
-          key={time + url}
-          onClick={() => {
-            onHistoryClick(current.data);
-            setIsHistoryDropdownOpen(false);
-          }}
-        >
-          <div>{url}{repeatCount > 1 && ` (x${repeatCount})`}</div>
-          <div>{new Date(time).toLocaleString()}</div>
-        </li>
-      );
+      console.log('Current:', current); // Add console log
+      if (current.data) {
+        const { url, time, repeatCount } = current.data;
+        historyItems.push(
+          <li
+            key={time + url}
+            onClick={() => {
+              if (current && current.data) {
+                console.log('History item clicked:', current.data);
+                onHistoryClick(current.data);
+              }
+              setIsHistoryDropdownOpen(false);
+            }}
+          >
+            <div>{url}{repeatCount > 1 && ` (x${repeatCount})`}</div>
+            <div>{new Date(time).toLocaleString()}</div>
+          </li>
+        );
+      }
       current = current.pointer;
     }
     return historyItems;
@@ -69,6 +76,7 @@ const Header = ({ history, recents, onHistoryClick, onRecentsClick }) => {
       <li
         key={recent.time + recent.url}
         onClick={() => {
+          console.log('Recent item clicked:', recent);
           onRecentsClick(recent);
           setIsRecentsDropdownOpen(false);
         }}
